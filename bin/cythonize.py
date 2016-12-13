@@ -70,6 +70,10 @@ def process_pyx(fromfile, tofile):
         flags.extend(['--directive', 'linetrace=True'])
         flags.extend(['--directive', 'binding=True'])
 
+    cython_html = 'CYTHON_HTML' in os.environ
+    if cython_html:
+        flags.extend(['-a'])
+
     try:
         try:
             r = subprocess.call(['cython'] + flags + ["-o", tofile, fromfile])

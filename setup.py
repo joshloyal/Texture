@@ -33,7 +33,7 @@ def chdir(new_dir):
 def clean(path):
     for name in PACKAGE_MODS:
         name = name.replace('.', '/')
-        for ext in ['.c', '.cpp', '.so']:
+        for ext in ['.c', '.cpp', '.so', '.html']:
             file_path = os.path.join(path, name + ext)
             if os.path.exists(file_path):
                 os.unlink(file_path)
