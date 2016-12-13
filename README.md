@@ -1,3 +1,3 @@
 Texture
 =======
-Text Feature Generation using SpaCy
+Text feature generation using SpaCy
