@@ -26,7 +26,7 @@ cdef struct Vocabulary:
 
 
 
-cdef void count(Doc doc, Vocabulary* vocab, PreshCounter counts, vector[Int_t]& j_indices):
+cdef void count(Doc doc, Vocabulary* vocab, PreshCounter counts, vector[Int_t]* j_indices):
     cdef int i
     cdef Int_t orth
     cdef vocab_iter it
@@ -44,10 +44,10 @@ cdef void count(Doc doc, Vocabulary* vocab, PreshCounter counts, vector[Int_t]& 
 
 
 def document_matrix(Doc doc):
-    cdef vector[Int_t] j_indices
-    cdef vector[Int_t] indptr
     cdef Vocabulary vocab
     cdef PreshCounter counts = PreshCounter()
+    cdef vector[Int_t]* j_indices = new vector[Int_t]()
+    cdef vector[Int_t]* indptr = new vector[Int_t]()
 
     vocab.index = vocab_map()
     vocab.length = 0
@@ -55,4 +55,4 @@ def document_matrix(Doc doc):
     count(doc, &vocab, counts, j_indices)
     indptr.push_back(j_indices.size())
 
-    return to_ndarray(j_indices.data(), j_indices.size())
+    return to_ndarray(j_indices), to_ndarray(indptr)
