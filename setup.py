@@ -12,7 +12,7 @@ VENDOR = 'texture'
 
 
 PACKAGE_MODS = [
-        'texture.count_matrix',
+        'texture.document_matrix',
         'texture.arrays',
         'texture.typedefs',
 ]
