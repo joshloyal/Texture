@@ -1,10 +1,12 @@
+# cython: infer_types=True
+# cython: boundscheck=False
+# cython: wraparound=False
 from libcpp.vector cimport vector
 #from libcpp.unordered_map cimport unordered_map as cpp_map
 from libcpp.map cimport map as cpp_map
 
 import numpy as np
 cimport numpy as np
-
 from scipy import sparse
 
 from preshed.counter cimport PreshCounter
@@ -42,7 +44,7 @@ cdef inline bint c_check_flag(const LexemeC* lexeme, attr_id_t flag_id) nogil:
         return False
 
 
-cdef void count(Doc doc, Vocabulary* vocab, PreshCounter counts, vector[Int_t]* j_indices):
+cdef void count(Doc doc, Vocabulary* vocab, PreshCounter counts, vector[Int_t]* j_indices) nogil:
     cdef int i
     cdef Int_t orth
     cdef vocab_iter it
@@ -55,7 +57,7 @@ cdef void count(Doc doc, Vocabulary* vocab, PreshCounter counts, vector[Int_t]* 
             continue
 
         orth = lex.orth
-        counts.inc(orth, 1)
+        #counts.inc(orth, 1)
 
         # keep track of vocab seen to build up sparse matrix
         it = vocab.index.find(orth)
